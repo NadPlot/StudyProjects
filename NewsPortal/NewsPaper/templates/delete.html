@@ -1,0 +1,25 @@
+{% extends 'flatpages/default.html' %}
+{% load text_filters %}
+ 
+{% block title %} Удаление поста {% endblock title %}
+ 
+{% block content %}
+
+<h2>Вы действительно хотите удалить данный пост?</h2>
+    <hr>
+<table>
+            <tr>
+                <td><strong>Заголовок</strong></td>
+                <td><strong>Дата публикации</strong></td>
+                <td><strong>Кратко</strong></td>
+            </tr>
+            <td>{{ post.title |censor }}</td>
+            <td>{{ post.add_time|date:'d m y'}}</td>
+            <td>{{ post.text|truncatewords:10 |censor}}</td>
+            </tr>
+</table>
+ 
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подтвердить удаление"></form>
+{% endblock content %} 

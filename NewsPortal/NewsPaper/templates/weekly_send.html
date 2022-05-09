@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load text_filters %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Здравствуй, {{ username }}!</h1>
+    <p> Новые публикации за неделю в разделе {{ category }}: </p>
+    <hr>
+<p>{% for post in post %}
+    <table>
+        <td><a href="{{ site_url }}{% url 'post' post.id %}">{{ post.title |censor}}</a></td>
+    </table>
+{% endfor %}
+    </p>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load text_filters %}
+
+
+{% block title %}
+Поиск
+{% endblock title %}
+
+{% block content %}
+
+    <h1><p><span style="color: #993366;">Поиск по категориям: </span></p></h1>
+
+    <hr>
+
+<form method="GET">
+    {{ filter.form.as_ul }}
+    <input type="submit" value="Найти">
+</form>
+   <hr>
+<hr1><p>Результаты поиска:</p></hr1>
+    {% if posts %}
+        <table>
+            <tr>
+                <td><strong>Заголовок</strong></td>
+                <td><strong>Дата публикации</strong></td>
+                <td><strong>Кратко</strong></td>
+            </tr>
+        {% for post in filter.qs %}
+            <tr>
+                <td><a href="{% url 'post' post.id %}">{{ post.title |censor }}</a></td>
+                <td>{{ post.add_time|date:'d m y'}}</td>
+                <td>{{ post.text|truncatewords:20 |censor}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+
+{% endblock content %}
