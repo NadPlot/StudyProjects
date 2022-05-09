@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Ошибка
+{% endblock title %}
+
+{% block content %}
+<article>
+    <section class="mb-5">
+        <div class="card bg-light">
+            <div class="card-body">
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">{{ user.username }}</h1>
+                    <h3 class="fw-bolder mb-1">Вы ввели неверный код!</h3>
+                    <p class="fs-5 mb-4">
+                        Для получения нового кода подтверждения перейдите <a href="{% url 'code' %}">по ссылке</a>
+                    </p>
+                </header>
+            </div>
+        </div>
+</article>
+{% endblock content %}

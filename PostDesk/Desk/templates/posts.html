@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Лента объявлений
+{% endblock title %}
+
+{% block content %}
+<article>
+    <section class="mb-5">
+        <div class="card bg-light">
+            <div class="card-body">
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">{{ user.username }}</h1>
+                    <h3 class="fw-bolder mb-1">Добро пожаловать на PostDesk!</h3>
+                    <p class="fs-5 mb-4">
+                        Здесь вы можете разместить свое объявление и откликнуться на объявления других пользователей.*
+                    </p>
+                </header>
+            </div>
+        </div>
+    </section>
+
+{% for post in posts %}
+    <header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">
+        Опубликовано {{ post.add_time|date:'d F, Y' }}, пользователем {{ post.user }}
+        </div>
+        <!-- Post categories-->
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ post.category.get }}</a>
+    </header>
+    <!-- Post content-->
+    {% if user != post.user %}
+    <button class="btn btn-outline-info">
+        <a href="{% url 'add_respond' post.id %}">Оставить отклик</a>
+    </button>
+    {% endif %}
+{% if user == post.user %}
+    <button class="btn btn-outline-info">
+        <a href="{% url 'post_update' post.id %}">Редактировать</a>
+    </button>
+{% endif %}
+    <section class="mb-5">
+        <p class="fs-5 mb-4">{{ post.content|safe }}
+            <hr>
+            {% endfor %}
+        </p>
+    </section>
+</article>
+{% endblock content %}

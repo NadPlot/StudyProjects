@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Подтверждение регистрации
+{% endblock title %}
+
+{% block content %}
+<article>
+    <section class="mb-5">
+        <div class="card bg-light">
+            <div class="card-body">
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">{{ user.username }}</h1>
+                    <h3 class="fw-bolder mb-1">Добро пожаловать на PostDesk!</h3>
+                    <p class="fs-5 mb-4">
+                        Вам необходимо подтвердить свою регистрацию. Вам было отправлено письмо с кодом подтверждения.
+                    </p>
+                    <p>После подтвреждения регистрации вы будете перенаправлены на главую страницу.</p>
+                </header>
+            </div>
+        </div>
+    </section>
+    <header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">
+            <form action="{% url 'enter_code' %}" method="POST">
+                {% csrf_token %}
+                <label for="code">Введите код подтверждения: </label>
+                <p><textarea id="code" maxlength="4" name="code" rows="2" cols="=10" required></textarea></p>
+                <p><input type="submit" value="Подтвердить"></p>
+            </form>
+        </h1>
+    </header>
+  </section>
+</article>
+{% endblock content %}

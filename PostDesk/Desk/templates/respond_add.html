@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Отправить Отклик
+{% endblock title %}
+
+{% block content %}
+<header class="mb-4">
+        <!-- Post title-->
+        {% for post in posts %}
+        <h1 class="fw-bolder mb-1">Отправить отклик на объявление</h1>
+        <h3 class="fw-bolder mb-1">{{ post.title }}</h3>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">
+        Posted on {{ post.add_time|date:'d F, Y' }} by {{ post.user }}
+        </div>
+    <section class="mb-5">
+        <p class="fs-5 mb-4">{{ post.content|safe }}
+        </p>
+    </section>
+
+<form action="{% url 'add_respond' post.id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="text">Напишите свой отклик: </label>
+    <p><textarea id="text" maxlength="250" name="text" rows="10" cols="=10" required></textarea></p>
+    <p><input type="submit" value="Добавить отклик"></p>
+    <input id="post" type="hidden" name="post_id" value="{{ post.id }}">
+    <input id="status" type="hidden" name="status" value="False">
+
+</form>
+        {% endfor %}
+{% endblock content %}

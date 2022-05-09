@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Отклики
+{% endblock title %}
+
+{% block content %}
+
+<article>
+    <section class="mb-5">
+        <header class="mb-4">
+            <h1 class="fw-bolder mb-1">Все отклики на объявления {{ user.username }}</h1>
+            <div class="card bg-light">
+                <div class="card-body">
+
+                    <h3 class="fw-bolder mb-1">Фильтровать отклики по объявлениям</h3>
+                    <p class="fs-5 mb-4">
+                    <form method="GET">
+                    {{ filter.form }}
+                    <input type="submit" value="Найти">
+                    </form></p>
+                </div>
+            </div>
+        </header>
+    </section>
+    {% for respond in filter.qs %}
+    {% if user == respond.post.user %}
+        <section class="mb-5">
+            <h3 class="fw-bolder mb-1">Отклик на пост "{{ respond.post.title }}"</h3>
+                <div class="text-muted fst-italic mb-2">Дата отклика {{ respond.add_time|date:'d M, Y' }}, пользователь {{ respond.user }}</div>
+            <!-- Post categories-->
+        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ respond.post.category.get }}</a>
+            <p class="fs-5 mb-4">{{ respond.text }}</p>
+            {% if not respond.status %}
+            <button class="btn btn-outline-info"><a href="{% url 'take_respond' respond.id %}">Принять отклик</a></button>
+            {% else %}
+            <button class="btn btn-warning">Отклик принят</button>
+             {% endif %}
+            <button class="btn btn-outline-info"><a href="{% url 'delete_respond' respond.id %}">Удалить отклик</a></button>
+            <hr>
+            {% endif %}
+{% endfor %}
+
+        </section>
+</article>
+
+{% endblock content %}

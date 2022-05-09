@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Добавить или редактировать статью
+{% endblock title %}
+
+{% block content %}
+<header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">Добавить или редактировать объявление</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input class="btn btn-primary" type="submit" value="Добавить">
+</form>
+
+{% endblock content %}
