@@ -1,5 +1,5 @@
 # StudyProjects
-Skillfactory study projects
+Skillfactory study projects - учебный проекты, выполнялись на протяжении курса и по его окончании
 
 Проект NewsPortal - новостной портал
 
